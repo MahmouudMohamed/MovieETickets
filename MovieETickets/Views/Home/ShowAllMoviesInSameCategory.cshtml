@@ -1,0 +1,74 @@
+﻿<div class="container mt-5">
+   @foreach (var Item in Model)
+    {
+
+        <div class="card movie-card mb-4 bg-dark text-white shadow-lg border-0 overflow-hidden">
+            <div class="row g-0">
+                <!-- Movie Image -->
+                <div class="col-md-3">
+                    <img src="~/images/movies/@Item.ImgUrl" class="img-fluid w-100 h-100 rounded-start " alt="@Item.Name">
+                </div>
+
+                <!-- Movie Details -->
+                <div class="col-md-8 p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <h3 class="card-title text-warning fw-bold">@Item.Name</h3>
+                        <p class="text-light opacity-75">@Item.Description</p>
+                    </div>
+
+                    <!-- Movie Information -->
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <span class="fw-bold text-warning">Category:</span>
+                            <a href="/Home/ShowAllMoviesInSameCategory?categoryName=@Item.Category.Name">
+                                <span class="badge bg-secondary">@Item.Category.Name</span>
+                            </a>
+
+                        </div>
+                        <div class="col-6 mb-2">
+                            <span class="fw-bold text-warning">Price:</span>
+                            <span class="badge bg-success">$@Item.Price</span>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <span class="fw-bold text-warning">Cinema:</span>
+                            <a href="/Home/ShowAllMoviesInSameCinema?cinemaName=@Item.Cinema.Name">
+                                <span class="badge bg-primary">@Item.Cinema.Name</span>
+                            </a>
+
+                        </div>
+                        <div class="col-6 mb-2">
+                            <span class="fw-bold text-warning">Start Date:</span> @Item.StartDate.ToString("yyyy-MM-dd")
+                        </div>
+                        <div class="col-6 mb-2">
+                            <span class="fw-bold text-warning">End Date:</span> @Item.EndDate.ToString("yyyy-MM-dd")
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="text-center mt-3">
+                        <a href="/Home/Details?movieId=@Item.Id" class="btn btn-warning btn-lg rounded-pill shadow-sm">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Bootstrap 5 Enhancements -->
+<style>
+    .movie-card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
+    }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.6);
+        }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>

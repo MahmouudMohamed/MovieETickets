@@ -1,0 +1,110 @@
+﻿<div class="container mt-5">
+ <h2 class="text-center mb-4 text-uppercase fw-bold">Movie Collection</h2>
+   <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                <div class="card border-0 shadow-lg rounded-3 overflow-hidden d-flex flex-column position-relative h-100 w-100 animate__animated animate__fadeIn" data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="@item.Name">
+                    <div class="position-absolute top-0 end-0 m-2">
+                        <span class="badge bg-@(item.MovieStatus == MovieETickets.Data.Enums.MovieStatus.Upcoming ? "warning" : item.MovieStatus == MovieETickets.Data.Enums.MovieStatus.Available ? "success" : "danger") fs-6 p-2">
+                            @item.MovieStatus
+                        </span>
+                    </div>
+                    <img src="~/images/movies/@item.ImgUrl" class="card-img-top" style="max-height:470px; width:auto"  alt="@item.Name">
+                    <div class="card-body text-center d-flex flex-column flex-grow-1">
+                        <h5 class="card-title text-dark fw-bold">@item.Name</h5>
+                        <h6 class="text-muted">
+                            Category:
+                            <a href="/Home/ShowAllMoviesInSameCategory?categoryName=@item.Category.Name" class="text-decoration-none text-primary">@item.Category.Name</a>
+                        </h6>
+                        <h6 class="text-muted">
+                            Cinema:
+                            <a href="/Home/ShowAllMoviesInSameCinema?cinemaName=@item.Cinema.Name" class="text-decoration-none text-primary">@item.Cinema.Name</a>
+                        </h6>
+                        <p class="text-success fw-bold">Price: $@item.Price</p>
+                        <p class="text-muted">Start Date: @item.StartDate.ToString("yyyy-MM-dd")</p>
+                        <p class="text-muted">End Date: @item.EndDate.ToString("yyyy-MM-dd")</p>
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="/Home/Details?movieId=@item.Id" class="btn btn-primary px-4 py-2 fw-bold">Show Details</a>
+                                <a #" class="btn btn-success px-4 py-2 fw-bold @(item.MovieStatus == MovieETickets.Data.Enums.MovieStatus.Expired ? "disabled" : "")">Book Now</a>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<style>
+    .card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            animation: pulse 0.5s;
+        }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>
+
+@* <div class="container mt-5">
+    <h2 class="text-center mb-4 text-uppercase fw-bold">Movie Collection</h2>
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                <div class="card border-0 shadow-lg rounded-3 overflow-hidden d-flex flex-column animate-card" style="height: 100%; width: 100%;">
+                    <img src="~/images/movies/@item.ImgUrl" class="card-img-top" style="max-height:400px; width:auto" alt="@item.Name">
+                    <div class="card-body text-center d-flex flex-column flex-grow-1">
+                        <h5 class="card-title text-dark fw-bold">@item.Name</h5>
+                        <h6 class="text-muted">
+                            Cinema:
+                            <a href="/cinema/getCinemaMovies?CinemaName=@item.Cinema.Name" class="text-decoration-none text-primary">@item.Cinema.Name</a>
+                        </h6>
+                        <h6 class="text-muted">
+                            Category:
+                            <a href="/Category/getCategoryMovies?CategoryName=@item.Category.Name" class="text-decoration-none text-primary">@item.Category.Name</a>
+                        </h6>
+                        <p class="text-success fw-bold">Price: $@item.Price</p>
+                        <p class="text-muted">Start Date: @item.StartDate.ToString("yyyy-MM-dd")</p>
+                        <p class="text-muted">End Date: @item.EndDate.ToString("yyyy-MM-dd")</p>
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-@(item.MovieStatus == MovieETickets.Data.Enums.MovieStatus.Upcoming ? "warning" : item.MovieStatus == MovieETickets.Data.Enums.MovieStatus.Available ? "success" : "danger")">
+                                    @item.MovieStatus
+                                </span>
+                                <a href="/Movie/Details/@item.Id" class="btn btn-success px-4 py-2 fw-bold @(item.MovieStatus == MovieETickets.Data.Enums.MovieStatus.Expired ? "disabled" : "")">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .animate-card {
+        transform: scale(0.95);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+        .animate-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+</style> *@

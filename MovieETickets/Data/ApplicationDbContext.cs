@@ -1,0 +1,21 @@
+﻿using Microsoft.EntityFrameworkCore;
+using MovieETickets.Models;
+
+namespace MovieETickets.Data
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Cinema> Cinemas { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=ETickets-Movie;Integrated Security=True;TrustServerCertificate=True");
+        }
+
+
+    }
+}
