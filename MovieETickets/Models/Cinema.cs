@@ -15,9 +15,6 @@ namespace MovieETickets.Models
         public string Description { get; set; }
         [Required]
         public string CinemaLogo { get; set; }
-        [Required]
-        [MinLength(3)]
-        [MaxLength(255)]
         public string Address { get; set; }
         public List<Movie> Movies { get; set; }
     }

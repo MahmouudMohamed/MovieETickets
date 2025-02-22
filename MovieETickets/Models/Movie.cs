@@ -17,5 +17,7 @@ namespace MovieETickets.Models
         public int CategoryId { get; set; }
         public Cinema Cinema { get; set; }
         public Category Category { get; set; }
+        public List<Actor> Actors { get; set; }
+        public List<ActorMovie> actorsMovies { get; set; }
     }
 }

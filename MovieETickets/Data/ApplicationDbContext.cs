@@ -8,12 +8,19 @@ namespace MovieETickets.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Actor> actors { get; set; }
+        public DbSet<ActorMovie> actorMovies { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=ETickets-Movie;Integrated Security=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=ETickets-Movies;Integrated Security=True;TrustServerCertificate=True");
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ActorMovie>().HasKey(t => new { t.ActorId, t.MovieId });
         }
 
 

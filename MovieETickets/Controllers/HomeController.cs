@@ -1,13 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MovieETickets.Data;
 using MovieETickets.Models;
 using MovieETickets.Repositories;
 using System.Diagnostics;
-using System.Linq.Expressions;
 
 namespace MovieETickets.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext dbContext = new ApplicationDbContext();
         private readonly MovieRepository movieRepository = new MovieRepository();
 
         private readonly ILogger<HomeController> _logger;
@@ -31,15 +33,8 @@ namespace MovieETickets.Controllers
         }
         public IActionResult Details(int movieId)
         {
-            var movie = movieRepository.GetOne
-                (
-                filter: e => e.Id == movieId,
-                 includes: new Expression<Func<Movie, object>>[]
-                {
-                    e => e.Cinema,
-                    e => e.Category
-                }
-                );
+            var movie = dbContext.Movies.Include(e => e.Category)
+                .Include(e => e.Cinema).Include(e => e.actorsMovies).ThenInclude(e => e.Actor).FirstOrDefault(e => e.Id == movieId);
             return View(movie);
         }
 

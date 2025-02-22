@@ -22,6 +22,69 @@ namespace MovieETickets.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ActorMovie", b =>
+                {
+                    b.Property<int>("ActorsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("moviesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ActorsId", "moviesId");
+
+                    b.HasIndex("moviesId");
+
+                    b.ToTable("ActorMovie");
+                });
+
+            modelBuilder.Entity("MovieETickets.Models.Actor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("News")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfilePicture")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("actors");
+                });
+
+            modelBuilder.Entity("MovieETickets.Models.ActorMovie", b =>
+                {
+                    b.Property<int>("ActorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ActorId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("actorMovies");
+                });
+
             modelBuilder.Entity("MovieETickets.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -50,8 +113,7 @@ namespace MovieETickets.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CinemaLogo")
                         .IsRequired()
@@ -123,6 +185,40 @@ namespace MovieETickets.Migrations
                     b.ToTable("Movies");
                 });
 
+            modelBuilder.Entity("ActorMovie", b =>
+                {
+                    b.HasOne("MovieETickets.Models.Actor", null)
+                        .WithMany()
+                        .HasForeignKey("ActorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieETickets.Models.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("moviesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MovieETickets.Models.ActorMovie", b =>
+                {
+                    b.HasOne("MovieETickets.Models.Actor", "Actor")
+                        .WithMany("actorsMovies")
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieETickets.Models.Movie", "Movie")
+                        .WithMany("actorsMovies")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Actor");
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("MovieETickets.Models.Movie", b =>
                 {
                     b.HasOne("MovieETickets.Models.Category", "Category")
@@ -142,6 +238,11 @@ namespace MovieETickets.Migrations
                     b.Navigation("Cinema");
                 });
 
+            modelBuilder.Entity("MovieETickets.Models.Actor", b =>
+                {
+                    b.Navigation("actorsMovies");
+                });
+
             modelBuilder.Entity("MovieETickets.Models.Category", b =>
                 {
                     b.Navigation("Movies");
@@ -150,6 +251,11 @@ namespace MovieETickets.Migrations
             modelBuilder.Entity("MovieETickets.Models.Cinema", b =>
                 {
                     b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieETickets.Models.Movie", b =>
+                {
+                    b.Navigation("actorsMovies");
                 });
 #pragma warning restore 612, 618
         }
