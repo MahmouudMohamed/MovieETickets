@@ -36,7 +36,7 @@ namespace MovieETickets.Controllers
             {
                 #region Save Image to wwwroot
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\cinema", fileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {

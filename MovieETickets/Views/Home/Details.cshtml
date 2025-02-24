@@ -4,10 +4,31 @@
     <div class="row g-0">
         <!-- 🎥 Movie Poster -->
         <div class="col-md-5 position-relative">
-            <img src="~/images/movies/@Model.ImgUrl"
-                 alt="@Model.Name"
-                 class="img-fluid w-100 h-100 rounded-start object-fit-cover border-end border-warning">
+            <div class="position-absolute top-0 end-0 m-2"
+            <!--Display Badge-->
+                @if (DateTime.Now >= Model.StartDate && DateTime.Now <= Model.EndDate)
+                {
+                    Model.MovieStatus = MovieETickets.Data.Enums.MovieStatus.Available;
+                    <span class="position-absolute top-0 end-0 m-2 badge bg-success">@Model.MovieStatus</span>
+                }
+                else if (DateTime.Now < Model.StartDate)
+                {
+                    Model.MovieStatus = MovieETickets.Data.Enums.MovieStatus.Upcoming;
+                    <span class="position-absolute top-0 end-0 m-2 badge bg-warning">@Model.MovieStatus</span>
+                }
+                else
+                {
+                    Model.MovieStatus = MovieETickets.Data.Enums.MovieStatus.Expired;
+                    <span class="position-absolute top-0 end-0 m-2 badge bg-danger">@Model.MovieStatus</span>
+
+                }
         </div>
+
+            <img src="~/images/movies/@Model.ImgUrl"
+            alt="@Model.Name"
+            class="img-fluid w-100 h-100 rounded-start object-fit-cover border-end border-warning">
+        </div>
+
 
         <!-- 📝 Movie Details -->
         <div class="col-md-7 p-4 d-flex flex-column justify-content-between">

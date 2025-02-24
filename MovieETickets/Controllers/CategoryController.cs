@@ -86,7 +86,6 @@ namespace MovieETickets.Controllers
 
         public IActionResult ShowAllMovies(string categoryName)
         {
-            //var movies = categoryRepository.GetOne(e => e.Name == categoryName);
             return RedirectToAction("ShowAllMoviesInSameCategory", "Home");
         }
     }
