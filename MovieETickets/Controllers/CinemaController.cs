@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieETickets.Data;
 using MovieETickets.Models;
 using MovieETickets.Repositories;
 
@@ -6,7 +7,7 @@ namespace MovieETickets.Controllers
 {
     public class CinemaController : Controller
     {
-        //ApplicationDbContext dbContext = new ApplicationDbContext();
+        ApplicationDbContext dbContext = new ApplicationDbContext();
         CinemaRepository cinemaRepository = new CinemaRepository();
 
 
@@ -70,23 +71,68 @@ namespace MovieETickets.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Cinema cinema)
+        public IActionResult Edit(Cinema cinema, IFormFile file)
         {
-            ModelState.Remove("CinemaLogo");
-            ModelState.Remove("Movies");
-            if (ModelState.IsValid)
+            #region Save img into wwwroot
+            var cinema1 = cinemaRepository.GetOne(e => e.Id == cinema.Id);
+
+            if (file != null && file.Length > 0)
+            {
+                // File Name, File Path
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\cinema", fileName);
+
+                var oldPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\cinema", cinema1.CinemaLogo);
+                if (System.IO.File.Exists(oldPath))
+                {
+                    System.IO.File.Delete(oldPath);
+                }
+
+                // Copy Img to file
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    file.CopyTo(stream);
+                }
+
+                // Save img into db
+                cinema.CinemaLogo = fileName;
+            }
+            else
+            {
+                cinema.CinemaLogo = cinema1.CinemaLogo;
+            }
+            #endregion
+
+            if (cinema != null)
             {
                 cinemaRepository.Edit(cinema);
                 cinemaRepository.Commit();
-
-
-                TempData["notifation"] = "Update cinema successfuly";
+                //dbContext.Cinemas.Update(cinema);
+                //dbContext.SaveChanges();
+                TempData["notifation"] = "Update Cinema successfuly";
 
                 return RedirectToAction(nameof(Index));
             }
 
             return RedirectToAction("NotFoundPage", "Home");
         }
+        //public IActionResult Edit(Cinema cinema)
+        //{
+        //    ModelState.Remove("CinemaLogo");
+        //    ModelState.Remove("Movies");
+        //    if (ModelState.IsValid)
+        //    {
+        //        cinemaRepository.Edit(cinema);
+        //        cinemaRepository.Commit();
+
+
+        //        TempData["notifation"] = "Update cinema successfuly";
+
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    return RedirectToAction("NotFoundPage", "Home");
+        //}
 
         public ActionResult Delete(int cinemaId)
         {
@@ -96,7 +142,7 @@ namespace MovieETickets.Controllers
             {
                 if (!string.IsNullOrEmpty(cinema.CinemaLogo))
                 {
-                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", cinema.CinemaLogo);
+                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "cinema", cinema.CinemaLogo);
                     if (System.IO.File.Exists(imagePath))
                     {
                         System.IO.File.Delete(imagePath);

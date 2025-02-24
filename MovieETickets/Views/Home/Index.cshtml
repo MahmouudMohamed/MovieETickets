@@ -22,21 +22,22 @@
                         <span class="position-absolute top-0 end-0 m-2 badge bg-danger">@item.MovieStatus</span>
 
                     }
-
                     <img src="~/images/movies/@item.ImgUrl" class="card-img-top" style="max-height:470px; width:auto" alt="@item.Name">
                     <div class="card-body text-center d-flex flex-column flex-grow-1">
                         <h5 class="card-title text-dark fw-bold">@item.Name</h5>
-                        <h6 class="text-muted">
+                        <h6 class="text-muted m-0">
                             Category:
                             <a href="/Home/ShowAllMoviesInSameCategory?categoryName=@item.Category.Name" class="text-decoration-none text-primary">@item.Category.Name</a>
                         </h6>
-                        <h6 class="text-muted">
+                        <h6 class="text-muted m-0">
                             Cinema:
                             <a href="/Home/ShowAllMoviesInSameCinema?cinemaName=@item.Cinema.Name" class="text-decoration-none text-primary">@item.Cinema.Name</a>
                         </h6>
-                        <p class="text-success fw-bold">Price: $@item.Price</p>
-                        <p class="text-muted">Start Date: @item.StartDate.ToString("yyyy-MM-dd")</p>
-                        <p class="text-muted">End Date: @item.EndDate.ToString("yyyy-MM-dd")</p>
+                        <p class="text-success fw-bold m-0">Price: $@item.Price</p>
+                        <p class="text-muted m-0">Start Date: @item.StartDate.ToString("yyyy-MM-dd")</p>
+                        <p class="text-muted m-0">End Date: @item.EndDate.ToString("yyyy-MM-dd")</p>
+
+
                         <div class="mt-auto">
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="/Home/Details?movieId=@item.Id" class="btn btn-primary px-4 py-2 fw-bold">Show Details</a>
