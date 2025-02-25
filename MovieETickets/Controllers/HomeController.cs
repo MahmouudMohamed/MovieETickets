@@ -33,8 +33,12 @@ namespace MovieETickets.Controllers
         }
         public IActionResult Details(int movieId)
         {
-            var movie = dbContext.Movies.Include(e => e.Category)
-                .Include(e => e.Cinema).Include(e => e.actorsMovies).ThenInclude(e => e.Actor).FirstOrDefault(e => e.Id == movieId);
+            //var movie = movieRepository.Get(filter: e => e.Id == movieId, includes: [e => e.Category, e => e.Cinema, e => e.actorsMovies]);
+            var movie = dbContext.Movies
+                 .Include(e => e.Category)
+                 .Include(e => e.Cinema)
+                 .Include(e => e.actorsMovies).ThenInclude(e => e.Actor)
+                 .FirstOrDefault(e => e.Id == movieId);
             return View(movie);
         }
 
@@ -69,6 +73,26 @@ namespace MovieETickets.Controllers
             return View();
         }
 
+        public IActionResult ActorDetails(int actorId)
+        {
+            var actor = dbContext.actors
+                .Include(a => a.actorsMovies) // Include join table
+                .ThenInclude(am => am.Movie) // Include movies through the join table
+                .FirstOrDefault(a => a.Id == actorId);
+            return View(actor);
+        }
+
+        public IActionResult SearchForMovie(string Name)
+        {
+            var movies = dbContext.Movies
+                            .Include(e => e.Cinema)
+                            .Include(e => e.Category)
+                            .Where(e => e.Name.Contains(Name))
+                            .ToList();
+            if (movies.Count != 0)
+                return View(movies);
+            return RedirectToAction("NotFoundPage", "Home");
+        }
 
 
         public IActionResult Privacy()

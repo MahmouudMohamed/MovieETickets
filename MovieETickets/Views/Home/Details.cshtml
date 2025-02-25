@@ -67,10 +67,12 @@
                     @foreach (var actor in Model.actorsMovies)
                     {
                         <div class="text-center actor-card">
-                            <img src="/images/cast/@actor.Actor.ProfilePicture"
-                                 class="rounded-circle border border-3 border-warning shadow-sm"
-                                 alt="@actor.Actor.FirstName"
-                                 style="width: 80px; height: 80px; object-fit: cover;">
+                            <a href="/Home/ActorDetails?actorId=@actor.ActorId">
+                                <img src="/images/cast/@actor.Actor.ProfilePicture"
+                                     class="rounded-circle border border-3 border-warning shadow-sm"
+                                     alt="@actor.Actor.FirstName"
+                                     style="width: 80px; height: 80px; object-fit: cover;">
+                            </a>
                             <p class="mt-2 mb-0 text-light fw-semibold small">@actor.Actor.FirstName @actor.Actor.LastName</p>
                         </div>
                     }

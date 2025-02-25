@@ -6,7 +6,7 @@
         <div class="col-lg-8">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-dark text-white text-center">
-                    <h3 class="mb-0">🎬 Edit Movie</h3>
+                    <h3 class="mb-0"> Edit @Model.Name</h3>
                 </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data" asp-action="Edit" id="movieForm">
@@ -122,8 +122,8 @@
             enableDatePicker("startDate");
             enableDatePicker("endDate");
         });
-
-           <script>
+    </script>
+    <script>
         document.getElementById("Img").addEventListener("change", function(event) {
             let file = event.target.files[0];
             if (file) {
@@ -135,7 +135,7 @@
             }
         });
     </script>
-
+    <script>
         document.getElementById("movieForm").addEventListener("submit", function (event) {
             var fileInput = document.getElementById("Img");
             var errorMessage = document.getElementById("fileError");

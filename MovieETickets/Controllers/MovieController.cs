@@ -6,7 +6,6 @@ namespace MovieETickets.Controllers
 {
     public class MovieController : Controller
     {
-        //ApplicationDbContext dbContext = new ApplicationDbContext();
         private readonly MovieRepository movieRepository = new MovieRepository();
         private readonly CategoryRepository categoryRepository = new CategoryRepository();
         private readonly CinemaRepository cinemaRepository = new CinemaRepository();
@@ -24,9 +23,7 @@ namespace MovieETickets.Controllers
             return View(movies.ToList());
         }
 
-
         [HttpGet]
-
         public IActionResult Create()
         {
             var category = categoryRepository.Get();
@@ -37,8 +34,6 @@ namespace MovieETickets.Controllers
             //ViewBag.MovieStatus = new SelectList(Enum.GetValues(typeof(MovieStatus)));
             return View(new Movie());
         }
-
-
         [HttpPost]
         public IActionResult Create(Movie movie, IFormFile file)
         {
@@ -76,8 +71,6 @@ namespace MovieETickets.Controllers
 
         }
 
-
-
         [HttpGet]
         public IActionResult Edit(int movieId)
         {
@@ -93,7 +86,7 @@ namespace MovieETickets.Controllers
 
             return RedirectToAction("NotFoundPage", "Home");
         }
-
+        [HttpPost]
         public IActionResult Edit(Movie movie, IFormFile file)
         {
             #region Save img into wwwroot

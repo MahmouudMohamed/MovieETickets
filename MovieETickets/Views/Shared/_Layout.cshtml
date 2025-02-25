@@ -33,14 +33,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-light fw-semibold" asp-area="" asp-controller="Cinema" asp-action="Index">Cinema</a>
                         </li>             
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-light fw-semibold" asp-area="" asp-controller="Movie" asp-action="Index">Movies</a>
                         </li>
                     </ul>
-                    <form class="d-flex ms-lg-3 mt-2 mt-lg-0" role="search">
-                        <input class="form-control me-2 rounded-pill border-0 px-3" type="search" placeholder="Search movies..." aria-label="Search">
-                        <button class="btn btn-outline-light rounded-pill px-3" type="submit">Search</button>
+                    <form class="d-flex" id="form1" action="/Home/SearchForMovie">
+                        <input class="form-control" type="text" id="Name" name="Name" placeholder="Search For Movie" />
+                        <button type="submit" class="btn btn-danger">Search</button>
                     </form>
                 </div>
             </div>
