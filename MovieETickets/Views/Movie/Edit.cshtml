@@ -20,7 +20,8 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-bold">🖼️ Movie Img</label>
-                            <input type="file" class="form-control" id="Img" name="file" accept="image/*">
+                            <input type="file" class="form-control" id="Img" name="file" accept="image/*" placeholder="">
+                            <input type="hidden" asp-for="ImgUrl" /> <!-- Hidden input to store the old image -->
                             <span class="text-danger d-none" id="fileError">Please upload a movie image.</span>
                             <div class="mt-2 text-center">
                                 <img id="imagePreview" src="/images/movies/@Model.ImgUrl" alt="Image Preview" class="rounded shadow" style="max-width: 100px;" />
@@ -83,6 +84,25 @@
                             </select>
                             <span asp-validation-for="CinemaId" class="text-danger"></span>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">👥 Select Actors</label>
+                            <div class="row row-cols-3 g-2">
+                                @foreach (var actor in ViewBag.actor)
+                                {
+                                    <div class="col text-center">
+                                        <input type="checkbox" name="actorsId" value="@actor.Id" class="btn-check" id="actor_@actor.Id"
+                                        @(ViewBag.SelectedActors != null && ViewBag.SelectedActors.Contains(actor.Id) ? "checked=\"checked\"" : "")>
+                                        <label class="btn btn-outline-primary w-100" for="actor_@actor.Id">
+                                            <img src="/images/cast/@actor.ProfilePicture" class="rounded-circle mb-1" style="width:50px; height:50px; object-fit:cover;" alt="@actor.FirstName @actor.LastName">
+                                            <br>
+                                            @actor.FirstName @actor.LastName
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-success px-4">Update Changes</button>
@@ -135,18 +155,8 @@
             }
         });
     </script>
-    <script>
-        document.getElementById("movieForm").addEventListener("submit", function (event) {
-            var fileInput = document.getElementById("Img");
-            var errorMessage = document.getElementById("fileError");
 
-            if (!fileInput.files.length) {
-                event.preventDefault();
-                errorMessage.classList.remove("d-none");
-                errorMessage.innerText = "Please upload a movie image.";
-            }
-        });
-    </script>
+
 
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

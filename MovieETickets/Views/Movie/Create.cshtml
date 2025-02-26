@@ -1,4 +1,4 @@
-﻿@using MovieETickets.Data.Enums
+﻿﻿@using MovieETickets.Data.Enums
 @model Movie
 
 <div class="container my-5">
@@ -82,6 +82,25 @@
                             </select>
                             <span asp-validation-for="CinemaId" class="text-danger"></span>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">👥 Select Actors</label>
+                            <button class="btn btn-secondary w-100" type="button" id="toggleActors">Toggle Actor Selection</button>
+                            <div class="collapse mt-3" id="actorsList">
+                                <div class="row row-cols-3 g-2">
+                                    @foreach (var actor in ViewBag.actor)
+                                    {
+                                        <div class="col text-center">
+                                            <input type="checkbox" name="actorsId[]" value="@actor.Id" class="btn-check" id="actor_@actor.Id">
+                                            <label class="btn btn-outline-primary w-100" for="actor_@actor.Id">
+                                                <img src="/images/cast/@actor.ProfilePicture" class="rounded-circle mb-1" style="width:50px; height:50px; object-fit:cover;" alt="@actor.FirstName @actor.LastName">
+                                                <br>
+                                                @actor.FirstName @actor.LastName
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
 
 
                         <div class="text-center">
@@ -96,6 +115,37 @@
 
 @section Scripts
 {
+    <script>
+        document.getElementById('Img').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            const errorMessage = document.getElementById('fileError');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    errorMessage.classList.add("d-none");
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+                errorMessage.classList.remove("d-none");
+            }
+        });
+
+        document.getElementById('toggleActors').addEventListener('click', function () {
+            let actorsList = document.getElementById('actorsList');
+            if (actorsList.classList.contains('show')) {
+                actorsList.classList.remove('show');
+            } else {
+                actorsList.classList.add('show');
+            }
+        });
+    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             function enableDatePicker(inputId) {
