@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-6 mb-2">
                             <span class="fw-bold text-warning">Category:</span>
-                            <a href="/Home/ShowAllMoviesInSameCategory?categoryName=@Item.Category.Name">
+                            <a href="/Client/Home/ShowAllMoviesInSameCategory?categoryName=@Item.Category.Name">
                                 <span class="badge bg-secondary">@Item.Category.Name</span>
                             </a>
 
@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-6 mb-2">
                             <span class="fw-bold text-warning">Cinema:</span>
-                            <a href="/Home/ShowAllMoviesInSameCinema?cinemaName=@Item.Cinema.Name">
+                            <a href="/Client/Home/ShowAllMoviesInSameCinema?cinemaName=@Item.Cinema.Name">
                                 <span class="badge bg-primary">@Item.Cinema.Name</span>
                             </a>
 
@@ -46,7 +46,7 @@
 
                     <!-- Action Button -->
                     <div class="text-center mt-3">
-                        <a href="/Home/Details?movieId=@Item.Id" class="btn btn-warning btn-lg rounded-pill shadow-sm">
+                        <a href="/Client/Home/Details?movieId=@Item.Id" class="btn btn-warning btn-lg rounded-pill shadow-sm">
                             View Details
                         </a>
                     </div>

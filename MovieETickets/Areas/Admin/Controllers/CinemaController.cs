@@ -3,8 +3,9 @@ using MovieETickets.Data;
 using MovieETickets.Models;
 using MovieETickets.Repositories;
 
-namespace MovieETickets.Controllers
+namespace MovieETickets.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CinemaController : Controller
     {
         ApplicationDbContext dbContext = new ApplicationDbContext();

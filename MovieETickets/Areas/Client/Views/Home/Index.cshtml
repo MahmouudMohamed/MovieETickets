@@ -27,11 +27,11 @@
                         <h5 class="card-title text-dark fw-bold">@item.Name</h5>
                         <h6 class="text-muted m-0">
                             Category:
-                            <a href="/Home/ShowAllMoviesInSameCategory?categoryName=@item.Category.Name" class="text-decoration-none text-primary">@item.Category.Name</a>
+                            <a href="/Client/Home/ShowAllMoviesInSameCategory?categoryName=@item.Category.Name" class="text-decoration-none text-primary">@item.Category.Name</a>
                         </h6>
                         <h6 class="text-muted m-0">
                             Cinema:
-                            <a href="/Home/ShowAllMoviesInSameCinema?cinemaName=@item.Cinema.Name" class="text-decoration-none text-primary">@item.Cinema.Name</a>
+                            <a href="/Client/Home/ShowAllMoviesInSameCinema?cinemaName=@item.Cinema.Name" class="text-decoration-none text-primary">@item.Cinema.Name</a>
                         </h6>
                         <p class="text-success fw-bold m-0">Price: $@item.Price</p>
                         <p class="text-muted m-0">Start Date: @item.StartDate.ToString("yyyy-MM-dd")</p>
@@ -40,7 +40,7 @@
 
                         <div class="mt-auto">
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="/Home/Details?movieId=@item.Id" class="btn btn-primary px-4 py-2 fw-bold">Show Details</a>
+                                <a href="/Client/Home/Details?movieId=@item.Id" class="btn btn-primary px-4 py-2 fw-bold">Show Details</a>
                                 <a #" class="btn btn-success px-4 py-2 fw-bold @(item.MovieStatus == MovieETickets.Data.Enums.MovieStatus.Expired ? "disabled" : "")">Book Now</a>
 
                             </div>

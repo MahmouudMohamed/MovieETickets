@@ -6,16 +6,16 @@
             toastr.success('@TempData["notifation"]')
         </script>
     }
-
+    
 }
 
 <div class="container my-3">
     <div class="container-fluid">
         <div class="row mb-3">
             <div class="d-flex justify-content-between align-items-center">
-                <h2 class="display-6 m-0">All Cinemas</h2>
-                <a href="/Cinema/Create" class="btn btn-success">
-                    <i class="bi bi-plus-square"></i> Create new Cinema
+                <h2 class="display-6 m-0">All Categories</h2>
+                <a href="/Admin/Category/Create" class="btn btn-success">
+                    <i class="bi bi-plus-square"></i> Create new category
                 </a>
             </div>
         </div>
@@ -26,9 +26,6 @@
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">CinemaLogo</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -37,19 +34,14 @@
                         {
                             <tr>
                                 <td>@item.Name</td>
-                                <td>@item.Description</td>
-                                <td>@item.Address</td>
                                 <td>
-                                    <img src="~/images/cinema/@item.CinemaLogo" class="card-img-top" style="max-height:50px; width:auto" alt="@item.CinemaLogo">
-                                </td>
-                                <td>
-                                    <a href="/Home/ShowAllMoviesInSameCinema?cinemaName=@item.Name" class="btn btn-primary rounded me-2">
+                                    <a href="/Client/Home/ShowAllMoviesInSameCategory?categoryName=@item.Name" class="btn btn-primary rounded me-2">
                                         <i class="bi bi-pencil-square"></i> Show All Movies
                                     </a>
-                                    <a href="/Cinema/Edit?cinemaId=@item.Id" class="btn btn-warning rounded me-2">
+                                    <a href="/Admin/Category/Edit?categoryId=@item.Id" class="btn btn-warning rounded me-2">
                                         <i class="bi bi-pencil-square"></i> Edit
                                     </a>
-                                    <a href="/Cinema/Delete?cinemaId=@item.Id" class="btn btn-danger rounded delete-btn">
+                                    <a href="/Admin/Category/Delete?categoryId=@item.Id" class="btn btn-danger rounded delete-btn">
                                         <i class="bi bi-trash"></i> Delete
                                     </a>
                                 </td>

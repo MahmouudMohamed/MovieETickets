@@ -35,7 +35,7 @@
         <div class="row mb-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h2 class="display-6 m-0">All Movies</h2>
-                <a href="/Movie/Create" class="btn btn-success">
+                <a href="/Admin/Movie/Create" class="btn btn-success">
                     <i class="bi bi-plus-square"></i> Create new Movie
                 </a>
             </div>
@@ -64,15 +64,15 @@
                                 <td class="align-middle">@item.Category.Name</td>
                                 <td class="align-middle">@item.Cinema.Name</td>
                                 <td class="align-middle">
-                                    <a asp-controller="Home" asp-action="Details" asp-route-movieId="@item.Id" class="btn btn-primary rounded me-2">
+                                    <a asp-area="Client" asp-controller="Home" asp-action="Details" asp-route-movieId="@item.Id" class="btn btn-primary rounded me-2">
                                         <i class="bi bi-eye"></i> Movie Details
                                     </a>
 
-                                    <a asp-controller="Movie" asp-action="Edit" asp-route-movieId="@item.Id" class="btn btn-warning rounded me-2">
+                                    <a asp-area="Admin" asp-controller="Movie" asp-action="Edit" asp-route-movieId="@item.Id" class="btn btn-warning rounded me-2">
                                         <i class="bi bi-pencil-square"></i> Edit
                                     </a>
 
-                                    <form asp-action="Delete" asp-route-movieId="@item.Id" method="post" class="d-inline delete-form" id="deleteForm-@item.Id">
+                                    <form asp-area="Admin" asp-controller="Movie" asp-action="Delete" asp-route-movieId="@item.Id" method="post" class="d-inline delete-form" id="deleteForm-@item.Id">
                                         <button type="button" class="btn btn-danger rounded delete-btn">
                                             <i class="bi bi-trash"></i> Delete
                                         </button>

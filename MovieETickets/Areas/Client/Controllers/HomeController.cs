@@ -5,8 +5,10 @@ using MovieETickets.Models;
 using MovieETickets.Repositories;
 using System.Diagnostics;
 
-namespace MovieETickets.Controllers
+namespace MovieETickets.Areas.Client.Controllers
 {
+    [Area("Client")]
+
     public class HomeController : Controller
     {
         ApplicationDbContext dbContext = new ApplicationDbContext();

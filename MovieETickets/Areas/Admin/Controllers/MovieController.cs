@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movie_Point.Repository;
-using MovieETickets.Data;
 using MovieETickets.Models;
 using MovieETickets.Repositories;
 
-namespace MovieETickets.Controllers
+namespace MovieETickets.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+
     public class MovieController : Controller
     {
-        ApplicationDbContext dbContext = new ApplicationDbContext();
         private readonly MovieRepository movieRepository = new MovieRepository();
         private readonly CategoryRepository categoryRepository = new CategoryRepository();
         private readonly CinemaRepository cinemaRepository = new CinemaRepository();

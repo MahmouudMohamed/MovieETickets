@@ -39,11 +39,11 @@
                 <div class="row g-3">
                     <div class="col-6">
                         <span class="fw-bold text-warning">Category:</span>
-                        <a href="/Home/ShowAllMoviesInSameCategory?categoryName=@Model.Category.Name" class="badge bg-secondary">@Model.Category.Name</a>
+                        <a href="/Client/Home/ShowAllMoviesInSameCategory?categoryName=@Model.Category.Name" class="badge bg-secondary">@Model.Category.Name</a>
                     </div>
                     <div class="col-6">
                         <span class="fw-bold text-warning">Cinema:</span>
-                        <a href="/Home/ShowAllMoviesInSameCategory?categoryName=@Model.Category.Name" class="badge bg-primary">@Model.Cinema.Name</a>
+                        <a href="/Client/Home/ShowAllMoviesInSameCategory?categoryName=@Model.Category.Name" class="badge bg-primary">@Model.Cinema.Name</a>
                     </div>
                     <div class="col-6">
                         <span class="fw-bold text-warning">Price:</span>
@@ -67,7 +67,7 @@
                     @foreach (var actor in Model.actorsMovies)
                     {
                         <div class="text-center actor-card">
-                            <a href="/Home/ActorDetails?actorId=@actor.ActorId">
+                            <a href="/Client/Home/ActorDetails?actorId=@actor.ActorId">
                                 <img src="/images/cast/@actor.Actor.ProfilePicture"
                                      class="rounded-circle border border-3 border-warning shadow-sm"
                                      alt="@actor.Actor.FirstName"
