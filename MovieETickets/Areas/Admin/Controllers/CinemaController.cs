@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MovieETickets.Data;
 using MovieETickets.Models;
 using MovieETickets.Repositories;
 
@@ -8,7 +7,7 @@ namespace MovieETickets.Areas.Admin.Controllers
     [Area("Admin")]
     public class CinemaController : Controller
     {
-        ApplicationDbContext dbContext = new ApplicationDbContext();
+        //ApplicationDbContext dbContext = new ApplicationDbContext();
         CinemaRepository cinemaRepository = new CinemaRepository();
 
 

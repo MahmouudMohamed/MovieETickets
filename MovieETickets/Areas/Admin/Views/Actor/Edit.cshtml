@@ -1,0 +1,86 @@
+﻿@model MovieETickets.Models.Actor
+
+@{
+    ViewData["Title"] = "Edit Actor";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-4">Edit Actor</h2>
+        <hr />
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ProfilePicture" /> <!-- Keeps old image if not changed -->
+
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="FirstName" class="fw-bold">First Name</label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="LastName" class="fw-bold">Last Name</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Bio" class="fw-bold">Biography</label>
+                        <textarea asp-for="Bio" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Bio" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="News" class="fw-bold">Latest News</label>
+                        <input asp-for="News" class="form-control" />
+                        <span asp-validation-for="News" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-md-6">
+                    <div class="text-center mb-3">
+                        <label class="fw-bold">Current Profile Picture</label>
+                        <div class="d-flex justify-content-center">
+                            <img id="previewImage" src="/images/cast/@Model.ProfilePicture" class="rounded shadow-sm" alt="Profile Picture" width="150" height="180" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="fw-bold">Upload New Profile Picture</label>
+                        <input type="file" name="ProfilePicture" class="form-control" id="profilePictureInput" accept="image/*" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-4">Update Changes</button>
+                <a asp-action="Index" class="btn btn-secondary px-4 ms-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.getElementById("profilePictureInput").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("previewImage").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieETickets.Data;
 using MovieETickets.Models;
 using MovieETickets.Repositories;
+using MovieETickets.Repositories.IRepositories;
 using System.Diagnostics;
 
 namespace MovieETickets.Areas.Client.Controllers
@@ -12,7 +13,7 @@ namespace MovieETickets.Areas.Client.Controllers
     public class HomeController : Controller
     {
         ApplicationDbContext dbContext = new ApplicationDbContext();
-        private readonly MovieRepository movieRepository = new MovieRepository();
+        private readonly IMovieRepository movieRepository = new MovieRepository();
 
         private readonly ILogger<HomeController> _logger;
         public HomeController(ILogger<HomeController> logger)
