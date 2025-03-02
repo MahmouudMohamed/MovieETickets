@@ -27,7 +27,7 @@ namespace MovieETickets.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Actor actor, IFormFile ProfilePicture)
         {
-            ModelState.Remove("file");
+            //ModelState.Remove("file");
             //ModelState.Remove("ProfilePicture");
             ModelState.Remove("movies");
             ModelState.Remove("actorsMovies");
