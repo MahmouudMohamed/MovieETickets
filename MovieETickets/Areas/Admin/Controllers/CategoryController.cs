@@ -1,14 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieETickets.Models;
-using MovieETickets.Repositories;
+using MovieETickets.Repositories.IRepositories;
 
 namespace MovieETickets.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class CategoryController : Controller
     {
-        //ApplicationDbContext dbContext = new ApplicationDbContext();
-        CategoryRepository categoryRepository = new CategoryRepository();
+        ICategoryRepository categoryRepository;
+
+        public CategoryController(ICategoryRepository categoryRepository)
+        {
+            this.categoryRepository = categoryRepository;
+        }
+
 
 
         public IActionResult Index()
@@ -82,12 +87,6 @@ namespace MovieETickets.Areas.Admin.Controllers
             }
 
             return RedirectToAction("NotFoundPage", "Home");
-        }
-
-
-        public IActionResult ShowAllMovies(string categoryName)
-        {
-            return RedirectToAction("ShowAllMoviesInSameCategory", "Home");
         }
     }
 }

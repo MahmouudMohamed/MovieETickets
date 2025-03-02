@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieETickets.Models;
-using MovieETickets.Repositories;
+using MovieETickets.Repositories.IRepositories;
 
 namespace MovieETickets.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class CinemaController : Controller
     {
-        //ApplicationDbContext dbContext = new ApplicationDbContext();
-        CinemaRepository cinemaRepository = new CinemaRepository();
+        ICinemaRepository cinemaRepository;
+
+        public CinemaController(ICinemaRepository cinemaRepository)
+        {
+            this.cinemaRepository = cinemaRepository;
+        }
 
 
         public IActionResult Index()

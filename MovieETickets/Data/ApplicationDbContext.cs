@@ -11,7 +11,14 @@ namespace MovieETickets.Data
         public DbSet<Actor> actors { get; set; }
         public DbSet<ActorMovie> actorMovies { get; set; }
 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+       : base(options)
+        {
+        }
+        public ApplicationDbContext()
+        {
 
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

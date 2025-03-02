@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Movie_Point.Repository;
+using Movie_Point.Repository.IRepository;
 using MovieETickets.Models;
-using MovieETickets.Repositories;
+using MovieETickets.Repositories.IRepositories;
 
 namespace MovieETickets.Areas.Admin.Controllers
 {
@@ -9,11 +9,21 @@ namespace MovieETickets.Areas.Admin.Controllers
 
     public class MovieController : Controller
     {
-        private readonly MovieRepository movieRepository = new MovieRepository();
-        private readonly CategoryRepository categoryRepository = new CategoryRepository();
-        private readonly CinemaRepository cinemaRepository = new CinemaRepository();
-        private readonly ActorRepository actorRepository = new ActorRepository();
-        private readonly ActorMovieRepository actorMovieRepository = new ActorMovieRepository();
+        private readonly IMovieRepository movieRepository;
+        private readonly ICategoryRepository categoryRepository;
+        private readonly ICinemaRepository cinemaRepository;
+        private readonly IActorRepository actorRepository;
+        private readonly IActorMovieRepository actorMovieRepository;
+
+        public MovieController(IMovieRepository movieRepository, ICategoryRepository categoryRepository,
+            ICinemaRepository cinemaRepository, IActorRepository actorRepository, IActorMovieRepository actorMovieRepository)
+        {
+            this.movieRepository = movieRepository;
+            this.categoryRepository = categoryRepository;
+            this.cinemaRepository = cinemaRepository;
+            this.actorRepository = actorRepository;
+            this.actorMovieRepository = actorMovieRepository;
+        }
 
         public IActionResult Index()
         {

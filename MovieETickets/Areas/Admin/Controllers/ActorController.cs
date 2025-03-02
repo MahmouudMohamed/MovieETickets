@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Movie_Point.Repository.IRepository;
 using MovieETickets.Models;
-using MovieETickets.Repositories;
 
 namespace MovieETickets.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ActorController : Controller
     {
-        ActorRepository actorRepository = new ActorRepository();
+        IActorRepository actorRepository;
+
+        public ActorController(IActorRepository actorRepository)
+        {
+            this.actorRepository = actorRepository;
+        }
         public IActionResult Index()
         {
             var actors = actorRepository.Get();

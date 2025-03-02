@@ -1,7 +1,23 @@
+using Microsoft.EntityFrameworkCore;
+using Movie_Point.Repository;
+using Movie_Point.Repository.IRepository;
+using MovieETickets.Data;
+using MovieETickets.Repositories;
+using MovieETickets.Repositories.IRepositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICinemaRepository, CinemaRepository>();
+builder.Services.AddScoped<IActorRepository, ActorRepository>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IActorMovieRepository, ActorMovieRepository>();
 
 var app = builder.Build();
 

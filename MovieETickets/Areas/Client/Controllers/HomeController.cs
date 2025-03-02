@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieETickets.Data;
 using MovieETickets.Models;
-using MovieETickets.Repositories;
 using MovieETickets.Repositories.IRepositories;
 using System.Diagnostics;
 
@@ -12,13 +11,15 @@ namespace MovieETickets.Areas.Client.Controllers
 
     public class HomeController : Controller
     {
-        ApplicationDbContext dbContext = new ApplicationDbContext();
-        private readonly IMovieRepository movieRepository = new MovieRepository();
-
+        private readonly IMovieRepository movieRepository;
         private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext dbContext;
+
+        public HomeController(IMovieRepository movieRepository, ILogger<HomeController> logger, ApplicationDbContext dbContext)
         {
+            this.movieRepository = movieRepository;
             _logger = logger;
+            this.dbContext = dbContext;
         }
 
         public IActionResult Index()

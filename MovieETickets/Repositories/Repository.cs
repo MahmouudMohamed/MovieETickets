@@ -7,11 +7,12 @@ namespace MovieETickets.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        ApplicationDbContext _dbContext = new ApplicationDbContext();
+        ApplicationDbContext _dbContext;
         public DbSet<T> dbSet;
 
-        public Repository()
+        public Repository(ApplicationDbContext dbContext)
         {
+            this._dbContext = dbContext;
             dbSet = _dbContext.Set<T>();
         }
 
